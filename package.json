@@ -1,0 +1,24 @@
+{
+  "name": "react-native-mob-sharesdk",
+  "version": "1.0.0",
+  "description": "react native sharesdk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/china-mobile2008/react-native-mob-sharesdk.git"
+  },
+  "keywords": [
+    "sharesdk",
+    "react",
+    "native"
+  ],
+  "author": "china_mobile2008",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/china-mobile2008/react-native-mob-sharesdk/issues"
+  },
+  "homepage": "https://github.com/china-mobile2008/react-native-mob-sharesdk#readme"
+}
