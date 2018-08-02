@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		420FB6221E436D2F004F1EF9 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420FB5A91E436485004F1EF9 /* ShareSDK.framework */; };
-		420FB6231E436D33004F1EF9 /* ShareSDKConfigFile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420FB5AD1E436485004F1EF9 /* ShareSDKConfigFile.framework */; };
 		420FB6241E436D37004F1EF9 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420FB5AE1E436485004F1EF9 /* ShareSDKExtension.framework */; };
 		420FB6251E436D3B004F1EF9 /* ShareSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420FB5B01E436485004F1EF9 /* ShareSDKUI.framework */; };
 		420FB6261E436D3F004F1EF9 /* QQConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420FB5B21E436485004F1EF9 /* QQConnector.framework */; };
@@ -33,10 +32,7 @@
 
 /* Begin PBXFileReference section */
 		420FB5A91E436485004F1EF9 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
-		420FB5AC1E436485004F1EF9 /* ShareSDKConfigFile.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKConfigFile.bundle; sourceTree = "<group>"; };
-		420FB5AD1E436485004F1EF9 /* ShareSDKConfigFile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConfigFile.framework; sourceTree = "<group>"; };
 		420FB5AE1E436485004F1EF9 /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
-		420FB5AF1E436485004F1EF9 /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
 		420FB5B01E436485004F1EF9 /* ShareSDKUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKUI.framework; sourceTree = "<group>"; };
 		420FB5B21E436485004F1EF9 /* QQConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QQConnector.framework; sourceTree = "<group>"; };
 		420FB5B31E436485004F1EF9 /* WechatConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WechatConnector.framework; sourceTree = "<group>"; };
@@ -64,7 +60,6 @@
 			files = (
 				420FB6251E436D3B004F1EF9 /* ShareSDKUI.framework in Frameworks */,
 				420FB6221E436D2F004F1EF9 /* ShareSDK.framework in Frameworks */,
-				420FB6231E436D33004F1EF9 /* ShareSDKConfigFile.framework in Frameworks */,
 				420FB6241E436D37004F1EF9 /* ShareSDKExtension.framework in Frameworks */,
 				420FB6271E436D41004F1EF9 /* WechatConnector.framework in Frameworks */,
 				420FB6261E436D3F004F1EF9 /* QQConnector.framework in Frameworks */,
@@ -100,10 +95,7 @@
 		420FB5AB1E436485004F1EF9 /* Optional */ = {
 			isa = PBXGroup;
 			children = (
-				420FB5AC1E436485004F1EF9 /* ShareSDKConfigFile.bundle */,
-				420FB5AD1E436485004F1EF9 /* ShareSDKConfigFile.framework */,
 				420FB5AE1E436485004F1EF9 /* ShareSDKExtension.framework */,
-				420FB5AF1E436485004F1EF9 /* ShareSDKUI.bundle */,
 				420FB5B01E436485004F1EF9 /* ShareSDKUI.framework */,
 			);
 			path = Optional;
