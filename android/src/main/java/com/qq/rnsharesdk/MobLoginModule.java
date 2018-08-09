@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -25,9 +26,12 @@ import cn.sharesdk.wechat.friends.Wechat;
 
 import static com.facebook.react.bridge.UiThreadUtil.runOnUiThread;
 
-public class MobLoginModule extends ReactContextBaseJavaModule implements PlatformActionListener {
+public class MobLoginModule extends ReactContextBaseJavaModule {
     private Context mContext;
     private Promise mPromise;
+    private final int SUCCESS = 1;
+    private final int ERROR = 2;
+    private final int CANCEL = 3;
 
     public MobLoginModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -52,7 +56,22 @@ public class MobLoginModule extends ReactContextBaseJavaModule implements Platfo
         if (qq.isAuthValid()) {
             qq.removeAccount(true);
         }
-        qq.setPlatformActionListener(this);
+        qq.setPlatformActionListener(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+
+            }
+        });
         qq.showUser(null);
         mPromise = promise;
     }
@@ -63,13 +82,28 @@ public class MobLoginModule extends ReactContextBaseJavaModule implements Platfo
         if (wechat.isAuthValid()) {
             wechat.removeAccount(true);
         }
-        wechat.setPlatformActionListener(this);
+        wechat.setPlatformActionListener(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+
+            }
+        });
         wechat.showUser(null);
         mPromise = promise;
     }
 
     @ReactMethod
-    public void showShare(String title, String text, String url, String imageUrl) {
+    public void shareWithText(String title, String text, String url, String imageUrl, final Callback successCallback) {
         OnekeyShare oks = new OnekeyShare();
         oks.setSilent(true);
         //ShareSDK快捷分享提供两个界面第一个是九宫格 CLASSIC  第二个是SKYBLUE
@@ -88,6 +122,38 @@ public class MobLoginModule extends ReactContextBaseJavaModule implements Platfo
         oks.setImageUrl(imageUrl);
         // url仅在微信（包括好友和朋友圈）中使用
         oks.setUrl(url);
+        // 注册回调
+        oks.setCallback(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        successCallback.invoke(SUCCESS, "success");
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Platform platform, int i, final Throwable throwable) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        successCallback.invoke(ERROR, throwable.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        successCallback.invoke(CANCEL, "cancel");
+                    }
+                });
+            }
+        });
         // 启动分享GUI
         oks.show(mContext);
     }
@@ -117,32 +183,39 @@ public class MobLoginModule extends ReactContextBaseJavaModule implements Platfo
         oks.setDialogMode(true);
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl("https://t.cn/RmXVDpb");
+        // 注册回调
+        oks.setCallback(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        successCallback.invoke(SUCCESS, "success");
+                    }
+                });
+            }
 
+            @Override
+            public void onError(Platform platform, int i, final Throwable throwable) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        successCallback.invoke(ERROR, throwable.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        successCallback.invoke(CANCEL, "cancel");
+                    }
+                });
+            }
+        });
         // 启动分享GUI
         oks.show(mContext);
-    }
-
-    @Override
-    public void onComplete(Platform platform, int action, HashMap<String, Object> hashMap) {
-        if (action == Platform.ACTION_USER_INFOR) {
-            PlatformDb platDB = platform.getDb();
-            WritableMap map = Arguments.createMap();
-            map.putString("token", platDB.getToken());
-            map.putString("user_id", platDB.getUserId());
-            map.putString("user_name", platDB.getUserName());
-            map.putString("user_gender", platDB.getUserGender());
-            map.putString("user_icon", platDB.getUserIcon());
-            mPromise.resolve(map);
-        }
-    }
-
-    @Override
-    public void onError(Platform platform, int i, Throwable throwable) {
-        mPromise.reject("LoginError", throwable.getMessage());
-    }
-
-    @Override
-    public void onCancel(Platform platform, int i) {
-        mPromise.reject("LoginCancel");
     }
 }

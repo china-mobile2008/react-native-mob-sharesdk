@@ -54,6 +54,11 @@ RCT_EXPORT_MODULE();
     return self;
 }
 
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
+
 RCT_EXPORT_METHOD(loginWithQQ:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     dispatch_async(dispatch_get_main_queue(), ^{
         if([ShareSDK hasAuthorized:(SSDKPlatformTypeQQ)]){
@@ -112,7 +117,7 @@ RCT_EXPORT_METHOD(loginWithWeChat:(RCTPromiseResolveBlock)resolve rejecter:(RCTP
     });
 }
 
-RCT_EXPORT_METHOD(showShare:(NSString *)title :(NSString *)content :(NSString *)url :(NSString *)imgUrl) {
+RCT_EXPORT_METHOD(shareWithText:(NSString *)title :(NSString *)content :(NSString *)url :(NSString *)imgUrl completion:(RCTResponseSenderBlock)completion) {
     dispatch_async(dispatch_get_main_queue(), ^{
         //1、创建分享参数（必要）
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -122,22 +127,26 @@ RCT_EXPORT_METHOD(showShare:(NSString *)title :(NSString *)content :(NSString *)
                                             url:[NSURL URLWithString:url]
                                           title:title
                                            type:SSDKContentTypeAuto];
+        SSUIShareSheetConfiguration *config = [[SSUIShareSheetConfiguration alloc] init];
+        config.columnPortraitCount = 2;
+        config.itemAlignment = SSUIItemAlignmentCenter;
+        
         //2、分享（可以弹出我们的分享菜单和编辑界面）
-        [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
-                                 items:nil
-                           shareParams:shareParams
-                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-                       
+        [ShareSDK showShareActionSheet:nil customItems:nil shareParams:shareParams sheetConfiguration:config onStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+
                        switch (state) {
                            case SSDKResponseStateSuccess:
                            {
+                               completion(@[@(state), @"share success"]);
                                break;
                            }
                            case SSDKResponseStateFail:
                            {
+                               completion(@[@(state), @"share fail"]);
                                break;
                            }
                            default:
+                               completion(@[@(state), @"share cancel"]);
                                break;
                        }
                    }
@@ -145,7 +154,7 @@ RCT_EXPORT_METHOD(showShare:(NSString *)title :(NSString *)content :(NSString *)
     });
 }
 
-RCT_EXPORT_METHOD(showShareImage:(NSString *)title :(NSString *)content :(NSString *)url :(NSString *)imgUrl) {
+RCT_EXPORT_METHOD(shareWithImage:(NSString *)title :(NSString *)content :(NSString *)url :(NSString *)imgUrl completion:(RCTResponseSenderBlock)completion) {
     dispatch_async(dispatch_get_main_queue(), ^{
         //1、创建分享参数
         NSArray * imageArray = @[imgUrl];
@@ -167,13 +176,16 @@ RCT_EXPORT_METHOD(showShareImage:(NSString *)title :(NSString *)content :(NSStri
                 switch (state) {
                     case SSDKResponseStateSuccess:
                     {
+                        completion(@[@(state), @"share success"]);
                         break;
                     }
                     case SSDKResponseStateFail:
                     {
+                        completion(@[@(state), @"share fail"]);
                         break;
                     }
                     default:
+                        completion(@[@(state), @"share cancel"]);
                         break;
                 }
             }

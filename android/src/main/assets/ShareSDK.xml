@@ -16,13 +16,11 @@
     <Wechat
         AppId=""
         AppSecret=""
-        BypassApproval="true"
         Enable="true" />
     
     <WechatMoments
         AppId=""
         AppSecret=""
-        BypassApproval="true"
         Enable="true" />
 
     <QZone
