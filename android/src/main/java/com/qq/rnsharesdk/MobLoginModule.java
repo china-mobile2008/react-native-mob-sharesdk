@@ -159,7 +159,7 @@ public class MobLoginModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void showShareImage(String title, String content, String url, String imgUrl) {
+    public void shareWithImage(String title, String content, String url, String imgUrl, final Callback successCallback) {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
