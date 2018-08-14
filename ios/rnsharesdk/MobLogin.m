@@ -164,7 +164,7 @@ RCT_EXPORT_METHOD(shareWithImage:(NSString *)title :(NSString *)content :(NSStri
             NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
             [shareParams SSDKSetupShareParamsByText:content
                                              images:imageArray
-                                                url:[NSURL URLWithString:url]
+                                                url:nil;//[NSURL URLWithString:url]
                                               title:title
                                                type:SSDKContentTypeAuto];
             
