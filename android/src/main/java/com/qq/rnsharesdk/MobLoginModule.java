@@ -58,13 +58,22 @@ public class MobLoginModule extends ReactContextBaseJavaModule {
         }
         qq.setPlatformActionListener(new PlatformActionListener() {
             @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-
+            public void onComplete(Platform platform, int action, HashMap<String, Object> hashMap) {
+                if (action == Platform.ACTION_USER_INFOR) {
+                    PlatformDb platDB = platform.getDb();
+                    WritableMap map = Arguments.createMap();
+                    map.putString("token", platDB.getToken());
+                    map.putString("user_id", platDB.getUserId());
+                    map.putString("user_name", platDB.getUserName());
+                    map.putString("user_gender", platDB.getUserGender());
+                    map.putString("user_icon", platDB.getUserIcon());
+                    mPromise.resolve(map);
+                }
             }
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
-
+                mPromise.reject("QQ LoginError", throwable.getMessage());
             }
 
             @Override
