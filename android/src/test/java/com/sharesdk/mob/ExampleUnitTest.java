@@ -1,4 +1,4 @@
-package com.mars.marsstation;
+package com.sharesdk.mob;
 
 import org.junit.Test;
 

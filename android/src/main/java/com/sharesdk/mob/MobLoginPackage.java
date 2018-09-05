@@ -1,4 +1,4 @@
-package com.mars.marsstation;
+package com.sharesdk.mob;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;

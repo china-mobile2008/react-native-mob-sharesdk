@@ -1,4 +1,4 @@
-package com.mars.marsstation;
+package com.sharesdk.mob;
 
 import android.content.Context;
 import android.net.Uri;
