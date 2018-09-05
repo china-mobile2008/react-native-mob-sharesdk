@@ -1,4 +1,4 @@
-package com.qq.rnsharesdk;
+package com.mars.marsstation;
 
 import android.content.Context;
 import android.net.Uri;
@@ -59,6 +59,7 @@ public class MobLoginModule extends ReactContextBaseJavaModule {
         qq.setPlatformActionListener(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int action, HashMap<String, Object> hashMap) {
+
                 if (action == Platform.ACTION_USER_INFOR) {
                     PlatformDb platDB = platform.getDb();
                     WritableMap map = Arguments.createMap();

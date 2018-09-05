@@ -1,4 +1,4 @@
-package com.qq.rnsharesdk;
+package com.mars.marsstation;
 
 import org.junit.Test;
 
