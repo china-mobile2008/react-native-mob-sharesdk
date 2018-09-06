@@ -1,4 +1,4 @@
-package com.sharesdk.mob;
+package com.qq.rnsharesdk;
 
 import org.junit.Test;
 

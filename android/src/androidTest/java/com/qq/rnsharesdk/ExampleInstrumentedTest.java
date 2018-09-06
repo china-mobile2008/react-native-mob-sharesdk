@@ -1,4 +1,4 @@
-package com.sharesdk.mob;
+package com.qq.rnsharesdk;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.mars.marsstation.test", appContext.getPackageName());
+        assertEquals("com.qq.rnsharesdk.test", appContext.getPackageName());
     }
 }
